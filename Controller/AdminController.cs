@@ -5,6 +5,7 @@ using Surfs_Up_API.Data;
 using Surfs_Up_API.Models;
 using System;
 using System.Net;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Surfs_Up_API.Controller
 {
@@ -58,14 +59,20 @@ namespace Surfs_Up_API.Controller
         [HttpPost("success")]
         public async Task<IActionResult> UpdateSuccessfulRequest(Request successRequest)
         {
-            Request? request = null;
+            Request request = null;
             if (successRequest.User != null)
-                request = await _context.Requests.FirstOrDefaultAsync(x => x.IpAddress == successRequest.IpAddress && x.User.Email == successRequest.User.Email);               
+            {
+                request = await _context.Requests.FirstOrDefaultAsync(x => x.IpAddress == successRequest.IpAddress && x.User.Email == successRequest.User.Email);
+                if (request == null)
+                {
+                    request = await _context.Requests.FirstOrDefaultAsync(x => x.IpAddress == successRequest.IpAddress);
+                    request.User = await _context.Users.FirstOrDefaultAsync(x => x.Email == successRequest.User.Email);
+                }
+            }
             
             else
                 request = await _context.Requests.FirstOrDefaultAsync(x => x.IpAddress == successRequest.IpAddress && x.User == null);
             
-
             if (request == null)
             {
                 request = successRequest;
