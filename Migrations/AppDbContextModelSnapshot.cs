@@ -190,6 +190,7 @@ namespace Surfs_Up_API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -441,7 +442,9 @@ namespace Surfs_Up_API.Migrations
                 {
                     b.HasOne("Surfs_Up_API.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

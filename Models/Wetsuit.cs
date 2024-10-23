@@ -11,7 +11,7 @@ namespace Surfs_Up_API.Models
 
         [Required] public SIZES Size { get; set; } = Wetsuit.SIZES.M;
 
-        public Booking Booking { get; set; } //denne linje refererer til Booking
+        public Booking? Booking { get; set; } //denne linje refererer til Booking
 
         [Required]
         public GENDER Gender { get; set; }
