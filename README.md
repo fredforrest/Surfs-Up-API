@@ -1,6 +1,6 @@
 ﻿# Surfs-Up-API
  
-#h2 This project is the backend part of the "Surfs Up" application. It is a .NET Web API that handles data and exposes endpoints to the frontend application.
+This project is the backend part of the "Surfs Up" application. It is a .NET Web API that handles data and exposes endpoints to the frontend application.
 Includes the operations you could expect from a simple webshop (CRUD).
 
 Technologies
